@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -35,9 +37,51 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyRow()
+                    MyComplexLayout()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyComplexLayout() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .background(Color.Cyan)
+        ) {
+
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .background(Color.Red)
+            ) {
+
+            }
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .background(Color.Green)
+            ) {
+                Text(text = "Hola soy Daniel")
+            }
+        }
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .weight(1f)
+            .background(Color.Magenta)) {
+
         }
     }
 }
@@ -47,7 +91,8 @@ fun MyRow() {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = "Ejemplo 2", modifier = Modifier.background(Color.Red))
         Text(text = "Ejemplo 3", modifier = Modifier.background(Color.Black))
@@ -90,6 +135,6 @@ fun MyBox() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyRow()
+        MyComplexLayout()
     }
 }
