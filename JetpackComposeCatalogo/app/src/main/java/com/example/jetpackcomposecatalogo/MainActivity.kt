@@ -51,9 +51,10 @@ fun MyComplexLayout() {
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
-                .background(Color.Cyan)
+                .background(Color.Cyan),
+            contentAlignment = Alignment.Center
         ) {
-
+            Text(text = "Ejemplo 1")
         }
         Row(
             modifier = Modifier
@@ -64,24 +65,28 @@ fun MyComplexLayout() {
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .background(Color.Red)
+                    .background(Color.Red),
+                contentAlignment = Alignment.Center
             ) {
-
+                Text(text = "Ejemplo 2")
             }
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .background(Color.Green)
+                    .background(Color.Green),
+                contentAlignment = Alignment.Center
             ) {
-                Text(text = "Hola soy Daniel")
+                Text(text = "Ejemplo 3")
             }
         }
         Box(modifier = Modifier
             .fillMaxWidth()
             .weight(1f)
-            .background(Color.Magenta)) {
-
+            .background(Color.Magenta),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Text(text = "Ejemplo 4")
         }
     }
 }
