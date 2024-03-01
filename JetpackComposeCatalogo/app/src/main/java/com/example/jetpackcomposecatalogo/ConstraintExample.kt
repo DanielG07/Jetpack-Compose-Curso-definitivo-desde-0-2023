@@ -68,7 +68,6 @@ fun ConstraintExample() {
     }
 }
 
-@Preview
 @Composable
 fun ConstraintExampleGuide() {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -82,6 +81,37 @@ fun ConstraintExampleGuide() {
             .constrainAs(boxRef) {
                 top.linkTo(topGuide)
                 start.linkTo(starGuide)
+            })
+    }
+}
+
+@Preview
+@Composable
+fun ConstrainBarrier() {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val (boxRed, boxGreen, boxYellow) = createRefs()
+        val barrier = createEndBarrier(boxRed, boxGreen)
+
+        Box(modifier = Modifier
+            .size(125.dp)
+            .background(Color.Red)
+            .constrainAs(boxRed) {
+                start.linkTo(parent.start, margin = 16.dp)
+            })
+
+        Box(modifier = Modifier
+            .size(225.dp)
+            .background(Color.Green)
+            .constrainAs(boxGreen) {
+                top.linkTo(boxRed.bottom)
+                start.linkTo(parent.start, margin = 32.dp)
+            })
+
+        Box(modifier = Modifier
+            .size(50.dp)
+            .background(Color.Yellow)
+            .constrainAs(boxYellow) {
+                start.linkTo(barrier)
             })
     }
 }
