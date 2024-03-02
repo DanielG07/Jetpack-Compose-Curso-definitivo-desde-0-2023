@@ -14,15 +14,18 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,11 +54,32 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyAdvanceTextField()
+                    MyTextFieldOutlined()
                 }
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTextFieldOutlined() {
+    var myText by remember {
+        mutableStateOf("")
+    }
+
+    OutlinedTextField(
+        value = myText,
+        onValueChange = { newText ->
+            myText = newText
+        },
+        modifier = Modifier.padding(8.dp),
+        label = { Text(text = "Nombre") },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Color.Magenta,
+            unfocusedBorderColor = Color.Blue
+        )
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,13 +90,17 @@ fun MyAdvanceTextField() {
         mutableStateOf("")
     }
 
-    TextField(value = myText, onValueChange = { newText ->
-        myText = if(newText.contains("a")) {
-            newText.replace("a", "")
-        } else {
-            newText
-        }
-    }, label = { Text(text = "Introduce tu nombre") }, )
+    TextField(
+        value = myText,
+        onValueChange = { newText ->
+            myText = if (newText.contains("a")) {
+                newText.replace("a", "")
+            } else {
+                newText
+            }
+        },
+        label = { Text(text = "Introduce tu nombre") },
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -235,6 +263,6 @@ fun MyBox() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyAdvanceTextField()
+        MyTextFieldOutlined()
     }
 }
