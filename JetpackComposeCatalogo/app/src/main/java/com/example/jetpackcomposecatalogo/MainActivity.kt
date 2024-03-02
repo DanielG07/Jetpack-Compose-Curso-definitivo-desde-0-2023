@@ -18,9 +18,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,11 +51,24 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyText()
+                    MyTextField()
                 }
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTextField() {
+
+    var myText by remember {
+        mutableStateOf("")
+    }
+
+    TextField(value = myText, onValueChange = { newText ->
+        myText = newText
+    })
 }
 
 @Composable
@@ -80,7 +95,6 @@ fun MyText() {
         )
         Text(text = "Esto es un ejemplo", fontSize = 36.sp)
     }
-
 }
 
 @Composable
@@ -204,6 +218,6 @@ fun MyBox() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyText()
+        MyTextField()
     }
 }
