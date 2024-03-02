@@ -51,11 +51,28 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyTextField()
+                    MyAdvanceTextField()
                 }
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyAdvanceTextField() {
+
+    var myText by remember {
+        mutableStateOf("")
+    }
+
+    TextField(value = myText, onValueChange = { newText ->
+        myText = if(newText.contains("a")) {
+            newText.replace("a", "")
+        } else {
+            newText
+        }
+    }, label = { Text(text = "Introduce tu nombre") }, )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -218,6 +235,6 @@ fun MyBox() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyTextField()
+        MyAdvanceTextField()
     }
 }
