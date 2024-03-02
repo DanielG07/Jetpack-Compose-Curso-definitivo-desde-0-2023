@@ -48,13 +48,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
+            var myText by remember {
+                mutableStateOf("")
+            }
+
             JetpackComposeCatalogoTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyTextFieldOutlined()
+                    MyTextFieldOutlined(myText) { newText ->
+                        myText = newText
+                    }
                 }
             }
         }
@@ -63,15 +70,13 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextFieldOutlined() {
-    var myText by remember {
-        mutableStateOf("")
-    }
+fun MyTextFieldOutlined(myText: String, onValueChange: (String) -> Unit) {
+
 
     OutlinedTextField(
         value = myText,
         onValueChange = { newText ->
-            myText = newText
+            onValueChange(newText)
         },
         modifier = Modifier.padding(8.dp),
         label = { Text(text = "Nombre") },
@@ -263,6 +268,8 @@ fun MyBox() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyTextFieldOutlined()
+        MyTextFieldOutlined("") {
+
+        }
     }
 }
