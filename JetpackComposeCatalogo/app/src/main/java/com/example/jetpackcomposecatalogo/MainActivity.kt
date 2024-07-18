@@ -1,8 +1,10 @@
 package com.example.jetpackcomposecatalogo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -59,11 +62,30 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyTextFieldOutlined(myText) { newText ->
-                        myText = newText
-                    }
+                    MyButtonExample()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyButtonExample(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+    ) {
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Magenta,
+                contentColor = Color.Blue
+            ),
+            border = BorderStroke(5.dp, Color.Green),
+            onClick = {
+            Log.i("Daniel", "Esto es un ejemplo")
+        }) {
+            Text(text = "Hola")
         }
     }
 }
@@ -268,8 +290,6 @@ fun MyBox() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyTextFieldOutlined("") {
-
-        }
+        MyButtonExample()
     }
 }
