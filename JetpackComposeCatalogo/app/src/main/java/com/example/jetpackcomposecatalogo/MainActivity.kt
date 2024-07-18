@@ -51,7 +51,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             var myText by remember {
                 mutableStateOf("")
             }
@@ -60,7 +59,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     MyButtonExample()
                 }
@@ -70,21 +69,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyButtonExample(){
+fun MyButtonExample() {
+    var enabled by rememberSaveable { mutableStateOf(true) }
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(24.dp),
     ) {
         Button(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Magenta,
-                contentColor = Color.Blue
-            ),
+            enabled = enabled,
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = Color.Magenta,
+                    contentColor = Color.Blue,
+                ),
             border = BorderStroke(5.dp, Color.Green),
             onClick = {
-            Log.i("Daniel", "Esto es un ejemplo")
-        }) {
+                enabled = false
+                Log.i("Daniel", "Esto es un ejemplo")
+            },
+        ) {
             Text(text = "Hola")
         }
     }
@@ -92,9 +98,10 @@ fun MyButtonExample(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextFieldOutlined(myText: String, onValueChange: (String) -> Unit) {
-
-
+fun MyTextFieldOutlined(
+    myText: String,
+    onValueChange: (String) -> Unit,
+) {
     OutlinedTextField(
         value = myText,
         onValueChange = { newText ->
@@ -102,17 +109,17 @@ fun MyTextFieldOutlined(myText: String, onValueChange: (String) -> Unit) {
         },
         modifier = Modifier.padding(8.dp),
         label = { Text(text = "Nombre") },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Magenta,
-            unfocusedBorderColor = Color.Blue
-        )
+        colors =
+            TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Magenta,
+                unfocusedBorderColor = Color.Blue,
+            ),
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyAdvanceTextField() {
-
     var myText by remember {
         mutableStateOf("")
     }
@@ -120,11 +127,12 @@ fun MyAdvanceTextField() {
     TextField(
         value = myText,
         onValueChange = { newText ->
-            myText = if (newText.contains("a")) {
-                newText.replace("a", "")
-            } else {
-                newText
-            }
+            myText =
+                if (newText.contains("a")) {
+                    newText.replace("a", "")
+                } else {
+                    newText
+                }
         },
         label = { Text(text = "Introduce tu nombre") },
     )
@@ -133,7 +141,6 @@ fun MyAdvanceTextField() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTextField() {
-
     var myText by remember {
         mutableStateOf("")
     }
@@ -152,18 +159,21 @@ fun MyText() {
         Text(text = "Esto es un ejemplo", style = TextStyle(fontFamily = FontFamily.Cursive))
         Text(
             text = "Esto es un ejemplo",
-            style = TextStyle(textDecoration = TextDecoration.LineThrough)
+            style = TextStyle(textDecoration = TextDecoration.LineThrough),
         )
         Text(
             text = "Esto es un ejemplo",
-            style = TextStyle(textDecoration = TextDecoration.Underline)
+            style = TextStyle(textDecoration = TextDecoration.Underline),
         )
         Text(
-            text = "Esto es un ejemplo", style = TextStyle(
-                textDecoration = TextDecoration.combine(
-                    listOf(TextDecoration.LineThrough, TextDecoration.Underline)
-                )
-            )
+            text = "Esto es un ejemplo",
+            style =
+                TextStyle(
+                    textDecoration =
+                        TextDecoration.combine(
+                            listOf(TextDecoration.LineThrough, TextDecoration.Underline),
+                        ),
+                ),
         )
         Text(text = "Esto es un ejemplo", fontSize = 36.sp)
     }
@@ -175,14 +185,14 @@ fun MyStateExample() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Button(onClick = {
             counter += 1
         }) {
             Text(text = "Pulsar")
         }
-        Text(text = "He sido pulsado ${counter} veces")
+        Text(text = "He sido pulsado $counter veces")
     }
 }
 
@@ -190,46 +200,51 @@ fun MyStateExample() {
 fun MyComplexLayout() {
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(Color.Cyan),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .background(Color.Cyan),
+            contentAlignment = Alignment.Center,
         ) {
             Text(text = "Ejemplo 1")
         }
         MySpacer(10)
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
         ) {
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .background(Color.Red),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .background(Color.Red),
+                contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Ejemplo 2")
             }
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .background(Color.Green),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .background(Color.Green),
+                contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Ejemplo 3")
             }
         }
         MySpacer(10)
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .background(Color.Magenta),
-            contentAlignment = Alignment.BottomCenter
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .background(Color.Magenta),
+            contentAlignment = Alignment.BottomCenter,
         ) {
             Text(text = "Ejemplo 4")
         }
@@ -244,10 +259,11 @@ fun MySpacer(size: Int) {
 @Composable
 fun MyRow() {
     Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(text = "Ejemplo 2", modifier = Modifier.background(Color.Red))
         Text(text = "Ejemplo 3", modifier = Modifier.background(Color.Black))
@@ -259,9 +275,11 @@ fun MyRow() {
 @Composable
 fun MyColumn() {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.SpaceBetween
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(text = "Ejemplo 2", modifier = Modifier.background(Color.Red))
         Text(text = "Ejemplo 3", modifier = Modifier.background(Color.Black))
@@ -274,12 +292,13 @@ fun MyColumn() {
 fun MyBox() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Box(
-            modifier = Modifier
-                .width(200.dp)
-                .height(200.dp)
-                .background(Color.Cyan)
-                .verticalScroll(rememberScrollState()),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .width(200.dp)
+                    .height(200.dp)
+                    .background(Color.Cyan)
+                    .verticalScroll(rememberScrollState()),
+            contentAlignment = Alignment.Center,
         ) {
             Text(text = "Esto es un EJEMPLO")
         }
