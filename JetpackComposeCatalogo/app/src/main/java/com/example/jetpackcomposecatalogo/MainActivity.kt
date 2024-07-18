@@ -24,6 +24,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -92,6 +93,21 @@ fun MyButtonExample() {
             },
         ) {
             Text(text = "Hola")
+        }
+
+        OutlinedButton(
+            modifier = Modifier.padding(top = 8.dp),
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = Color.Magenta,
+                    contentColor = Color.Blue,
+                    disabledContainerColor = Color.Blue,
+                    disabledContentColor = Color.Red,
+                ),
+            enabled = enabled,
+            onClick = { enabled = false },
+        ) {
+            Text(text = "Hola Outlined")
         }
     }
 }
