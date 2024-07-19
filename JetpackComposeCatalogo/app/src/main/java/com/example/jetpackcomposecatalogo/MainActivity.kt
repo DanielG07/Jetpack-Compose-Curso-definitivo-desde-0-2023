@@ -28,6 +28,8 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.sharp.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -76,7 +78,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MySwitch()
+                    MyCheckBox()
                 }
             }
         }
@@ -87,8 +89,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MySwitch()
+        MyCheckBox()
     }
+}
+
+@Composable
+fun MyCheckBox() {
+    var state by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    Checkbox(
+        checked = state,
+        onCheckedChange = { state = !state },
+        enabled = true,
+        colors =
+            CheckboxDefaults.colors(
+                checkedColor = Color.Red,
+                uncheckedColor = Color.Yellow,
+                checkmarkColor = Color.Blue,
+            ),
+    )
 }
 
 @Composable
