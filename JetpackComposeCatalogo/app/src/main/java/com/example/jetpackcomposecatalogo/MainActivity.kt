@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MyProgress()
+                    MyProgressAdvance()
                 }
             }
         }
@@ -85,12 +85,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyProgress()
+        MyProgressAdvance()
     }
 }
 
 @Composable
-fun MyProgress() {
+fun MyProgressAdvance() {
+    var progressBar by rememberSaveable {
+        mutableStateOf(0.0F)
+    }
+
     Column(
         modifier =
             Modifier
@@ -100,14 +104,55 @@ fun MyProgress() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CircularProgressIndicator(
-            color = Color.Red,
-            strokeWidth = 8.dp,
+            progress = progressBar,
         )
+
         LinearProgressIndicator(
-            modifier = Modifier.padding(top = 12.dp),
-            trackColor = Color.Red,
-            color = Color.Green,
+            progress = progressBar,
         )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+        ) {
+            Button(onClick = { progressBar -= 0.1F }) {
+                Text(text = "Reducir")
+            }
+            Button(onClick = { progressBar += 0.1F }) {
+                Text(text = "Incrementar")
+            }
+        }
+    }
+}
+
+@Composable
+fun MyProgress() {
+    var showLoading by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    Column(
+        modifier =
+            Modifier
+                .padding(24.dp)
+                .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        if (showLoading) {
+            CircularProgressIndicator(
+                color = Color.Red,
+                strokeWidth = 8.dp,
+            )
+            LinearProgressIndicator(
+                modifier = Modifier.padding(top = 12.dp),
+                trackColor = Color.Red,
+                color = Color.Green,
+            )
+        }
+        Button(onClick = { showLoading = !showLoading }) {
+            Text(text = "Cargar")
+        }
     }
 }
 
