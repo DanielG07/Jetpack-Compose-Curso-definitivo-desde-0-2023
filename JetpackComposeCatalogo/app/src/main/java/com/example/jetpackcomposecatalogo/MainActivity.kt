@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MyCheckBox()
+                    MyCheckBoxWithText()
                 }
             }
         }
@@ -89,7 +89,23 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyCheckBox()
+        MyCheckBoxWithText()
+    }
+}
+
+@Composable
+fun MyCheckBoxWithText() {
+    var state by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    Row (
+        modifier = Modifier.padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(checked = state, onCheckedChange = {state = !state})
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = "Ejemplo 1")
     }
 }
 
@@ -142,9 +158,9 @@ fun MyProgressAdvance() {
 
     Column(
         modifier =
-            Modifier
-                .padding(24.dp)
-                .fillMaxSize(),
+        Modifier
+            .padding(24.dp)
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -178,9 +194,9 @@ fun MyProgress() {
 
     Column(
         modifier =
-            Modifier
-                .padding(24.dp)
-                .fillMaxSize(),
+        Modifier
+            .padding(24.dp)
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -216,9 +232,9 @@ fun MyImageAdvance() {
         painter = painterResource(id = R.drawable.ic_launcher_background),
         contentDescription = "ejemplo",
         modifier =
-            Modifier
-                .clip(RoundedCornerShape(25.dp))
-                .border(5.dp, Color.Red, RoundedCornerShape(25.dp)),
+        Modifier
+            .clip(RoundedCornerShape(25.dp))
+            .border(5.dp, Color.Red, RoundedCornerShape(25.dp)),
     )
 }
 
@@ -236,9 +252,9 @@ fun MyButtonExample() {
 
     Column(
         modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(24.dp),
+        Modifier
+            .fillMaxSize()
+            .padding(24.dp),
     ) {
         Button(
             enabled = enabled,
@@ -382,10 +398,10 @@ fun MyComplexLayout() {
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .weight(1f)
-                    .background(Color.Cyan),
+            Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .background(Color.Cyan),
             contentAlignment = Alignment.Center,
         ) {
             Text(text = "Ejemplo 1")
@@ -393,26 +409,26 @@ fun MyComplexLayout() {
         MySpacer(10)
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+            Modifier
+                .fillMaxWidth()
+                .weight(1f),
         ) {
             Box(
                 modifier =
-                    Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(Color.Red),
+                Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .background(Color.Red),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Ejemplo 2")
             }
             Box(
                 modifier =
-                    Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(Color.Green),
+                Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .background(Color.Green),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Ejemplo 3")
@@ -421,10 +437,10 @@ fun MyComplexLayout() {
         MySpacer(10)
         Box(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .background(Color.Magenta),
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.Magenta),
             contentAlignment = Alignment.BottomCenter,
         ) {
             Text(text = "Ejemplo 4")
