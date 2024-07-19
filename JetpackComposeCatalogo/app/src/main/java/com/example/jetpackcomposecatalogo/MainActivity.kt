@@ -28,8 +28,10 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.sharp.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -72,7 +74,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MyIcon()
+                    MyProgress()
                 }
             }
         }
@@ -83,7 +85,29 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyIcon()
+        MyProgress()
+    }
+}
+
+@Composable
+fun MyProgress() {
+    Column(
+        modifier =
+            Modifier
+                .padding(24.dp)
+                .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        CircularProgressIndicator(
+            color = Color.Red,
+            strokeWidth = 8.dp,
+        )
+        LinearProgressIndicator(
+            modifier = Modifier.padding(top = 12.dp),
+            trackColor = Color.Red,
+            color = Color.Green,
+        )
     }
 }
 
