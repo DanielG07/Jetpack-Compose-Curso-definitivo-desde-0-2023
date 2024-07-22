@@ -62,34 +62,61 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jetpackcomposecatalogo.ui.CheckInfo
 import com.example.jetpackcomposecatalogo.ui.theme.JetpackComposeCatalogoTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var myText by remember {
-                mutableStateOf("")
-            }
-
             JetpackComposeCatalogoTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MyCheckBoxWithText()
+                    val myOptions = getOptions(titles = listOf("Primero", "Segundo", "Tercero"))
+                    Column {
+                        myOptions.forEach {
+                            MyCheckBoxWithTextComplete(it)
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+@Composable
+fun getOptions(titles: List<String>): List<CheckInfo> =
+    titles.map {
+        var status by rememberSaveable {
+            mutableStateOf(false)
+        }
+        CheckInfo(
+            title = it,
+            selected = status,
+            onCheckedChange = { status = it },
+        )
+    }
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyCheckBoxWithText()
+        // MyCheckBoxWithTextComplete()
+    }
+}
+
+@Composable
+fun MyCheckBoxWithTextComplete(checkInfo: CheckInfo) {
+    Row(
+        modifier = Modifier.padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Checkbox(checked = checkInfo.selected, onCheckedChange = { checkInfo.onCheckedChange(!checkInfo.selected) })
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = checkInfo.title)
     }
 }
 
@@ -99,11 +126,11 @@ fun MyCheckBoxWithText() {
         mutableStateOf(false)
     }
 
-    Row (
+    Row(
         modifier = Modifier.padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = state, onCheckedChange = {state = !state})
+        Checkbox(checked = state, onCheckedChange = { state = !state })
         Spacer(modifier = Modifier.width(8.dp))
         Text(text = "Ejemplo 1")
     }
@@ -158,9 +185,9 @@ fun MyProgressAdvance() {
 
     Column(
         modifier =
-        Modifier
-            .padding(24.dp)
-            .fillMaxSize(),
+            Modifier
+                .padding(24.dp)
+                .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -194,9 +221,9 @@ fun MyProgress() {
 
     Column(
         modifier =
-        Modifier
-            .padding(24.dp)
-            .fillMaxSize(),
+            Modifier
+                .padding(24.dp)
+                .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -232,9 +259,9 @@ fun MyImageAdvance() {
         painter = painterResource(id = R.drawable.ic_launcher_background),
         contentDescription = "ejemplo",
         modifier =
-        Modifier
-            .clip(RoundedCornerShape(25.dp))
-            .border(5.dp, Color.Red, RoundedCornerShape(25.dp)),
+            Modifier
+                .clip(RoundedCornerShape(25.dp))
+                .border(5.dp, Color.Red, RoundedCornerShape(25.dp)),
     )
 }
 
@@ -252,9 +279,9 @@ fun MyButtonExample() {
 
     Column(
         modifier =
-        Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+            Modifier
+                .fillMaxSize()
+                .padding(24.dp),
     ) {
         Button(
             enabled = enabled,
@@ -398,10 +425,10 @@ fun MyComplexLayout() {
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(Color.Cyan),
+                Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .background(Color.Cyan),
             contentAlignment = Alignment.Center,
         ) {
             Text(text = "Ejemplo 1")
@@ -409,26 +436,26 @@ fun MyComplexLayout() {
         MySpacer(10)
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(1f),
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
         ) {
             Box(
                 modifier =
-                Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .background(Color.Red),
+                    Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .background(Color.Red),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Ejemplo 2")
             }
             Box(
                 modifier =
-                Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .background(Color.Green),
+                    Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .background(Color.Green),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Ejemplo 3")
@@ -437,10 +464,10 @@ fun MyComplexLayout() {
         MySpacer(10)
         Box(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .background(Color.Magenta),
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .background(Color.Magenta),
             contentAlignment = Alignment.BottomCenter,
         ) {
             Text(text = "Ejemplo 4")
