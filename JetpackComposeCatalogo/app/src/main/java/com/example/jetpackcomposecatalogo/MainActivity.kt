@@ -80,11 +80,56 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     val myOptions = getOptions(titles = listOf("Primero", "Segundo", "Tercero"))
+
+                    var selected by remember {
+                        mutableStateOf("Dani")
+                    }
+
                     Column {
                         MyRadioButton()
+                        MyRadioButtonList(name = selected, onItemSelected = { selected = it })
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyRadioButtonList(
+    name: String,
+    onItemSelected: (String) -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row {
+            RadioButton(
+                selected = name == "Dani",
+                onClick = { onItemSelected("Dani") },
+            )
+            Text(text = "Dani")
+        }
+        Row {
+            RadioButton(
+                selected = name == "Daniel",
+                onClick = { onItemSelected("Daniel") },
+            )
+            Text(text = "Daniel")
+        }
+        Row {
+            RadioButton(
+                selected = name == "Daniela",
+                onClick = { onItemSelected("Daniela") },
+            )
+            Text(text = "Daniela")
+        }
+        Row {
+            RadioButton(
+                selected = name == "Danielito",
+                onClick = { onItemSelected("Danielito") },
+            )
+            Text(text = "Danielito")
         }
     }
 }
@@ -95,7 +140,9 @@ fun MyRadioButton() {
         mutableStateOf(false)
     }
 
-    Row {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
         RadioButton(
             selected = state,
             onClick = { state = !state },
