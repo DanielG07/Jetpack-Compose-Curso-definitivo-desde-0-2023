@@ -28,6 +28,8 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.sharp.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -86,11 +88,45 @@ class MainActivity : ComponentActivity() {
                     }
 
                     Column {
-                        MyRadioButton()
-                        MyRadioButtonList(name = selected, onItemSelected = { selected = it })
+                        MyCard()
                     }
                 }
             }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    JetpackComposeCatalogoTheme {
+        MyCard()
+    }
+}
+
+@Composable
+fun MyCard() {
+    Card(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        elevation =
+            CardDefaults.cardElevation(
+                defaultElevation = 16.dp,
+            ),
+        shape = MaterialTheme.shapes.small,
+        colors =
+            CardDefaults.cardColors(
+                containerColor = Color.Red,
+                contentColor = Color.Green,
+            ),
+        border = BorderStroke(5.dp, Color.Green),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Ejemplo 1")
+            Text(text = "Ejemplo 2")
+            Text(text = "Ejemplo 3")
         }
     }
 }
@@ -186,14 +222,6 @@ fun getOptions(titles: List<String>): List<CheckInfo> =
             onCheckedChange = { status = it },
         )
     }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    JetpackComposeCatalogoTheme {
-        // MyCheckBoxWithTextComplete()
-    }
-}
 
 @Composable
 fun MyCheckBoxWithTextComplete(checkInfo: CheckInfo) {
