@@ -8,6 +8,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,6 +38,8 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -82,18 +85,9 @@ class MainActivity : ComponentActivity() {
             JetpackComposeCatalogoTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    val myOptions = getOptions(titles = listOf("Primero", "Segundo", "Tercero"))
-
-                    var selected by remember {
-                        mutableStateOf("Dani")
-                    }
-
-                    Column {
-                        MyBadgeBox()
-                    }
+                    MyDropDownMenu()
                 }
             }
         }
@@ -104,14 +98,68 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyDivider()
+        MyDropDownMenu()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyDropDownMenu() {
+    var selectedText by remember {
+        mutableStateOf("")
+    }
+
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+
+    val desserts =
+        listOf(
+            "Chocolate",
+            "Cafe",
+            "Helado",
+            "Fruta",
+            "Chilaquiles",
+        )
+
+    Column(
+        modifier = Modifier.padding(20.dp),
+    ) {
+        OutlinedTextField(
+            value = selectedText,
+            onValueChange = { selectedText = it },
+            enabled = false,
+            readOnly = true,
+            modifier =
+                Modifier
+                    .clickable { }
+                    .fillMaxWidth(),
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            desserts.forEach { dessert ->
+                DropdownMenuItem(
+                    text = { dessert },
+                    onClick = {
+                        expanded = false
+                        selectedText = dessert
+                    },
+                )
+            }
+        }
     }
 }
 
 @Composable
 fun MyDivider() {
     Divider(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
         color = Color.Red,
     )
 }
