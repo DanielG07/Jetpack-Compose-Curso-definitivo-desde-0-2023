@@ -24,8 +24,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.sharp.Star
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -88,7 +91,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     Column {
-                        MyCard()
+                        MyBadgeBox()
                     }
                 }
             }
@@ -100,7 +103,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyCard()
+        MyBadgeBox()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyBadgeBox() {
+    BadgedBox(
+        badge = {
+            Badge(
+                content = {
+                    Text(text = "100")
+                },
+                contentColor = Color.Blue,
+            )
+        },
+        modifier = Modifier.padding(16.dp),
+    ) {
+        Icon(imageVector = Icons.Default.Star, contentDescription = "a")
     }
 }
 
