@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MyBasicSlider()
+                    MyAdvanceSlider()
                 }
             }
         }
@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyBasicSlider()
+        MyAdvanceSlider()
     }
 }
 
