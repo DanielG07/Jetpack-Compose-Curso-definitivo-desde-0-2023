@@ -132,7 +132,7 @@ fun MyDropDownMenu() {
             readOnly = true,
             modifier =
                 Modifier
-                    .clickable { }
+                    .clickable { expanded = true }
                     .fillMaxWidth(),
         )
         DropdownMenu(
