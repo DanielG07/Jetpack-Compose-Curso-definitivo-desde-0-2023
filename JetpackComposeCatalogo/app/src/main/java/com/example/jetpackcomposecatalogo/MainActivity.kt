@@ -87,7 +87,28 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MyRangeSlider()
+                    var show by remember {
+                        mutableStateOf(false)
+                    }
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Button(onClick = {
+                            show = true
+                        }) {
+                            Text(text = "Mostrar dialogo")
+                        }
+                        MyDialog(
+                            show = show,
+                            onConfirm = {
+                                Log.i("Dialog", "Confirm")
+                            },
+                            onDismiss = {
+                                Log.i("Dialog", "Dismiss")
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -98,7 +119,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyRangeSlider()
+        MyDialog(
+            show = true,
+            onConfirm = {
+                Log.i("Dialog", "Confirm")
+            },
+            onDismiss = {
+                Log.i("Dialog", "Dismiss")
+            },
+        )
     }
 }
 
