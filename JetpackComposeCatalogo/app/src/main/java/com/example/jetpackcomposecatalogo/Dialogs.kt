@@ -14,6 +14,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,6 +31,58 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
 @Composable
+fun MyConfirmationDialog(
+    show: Boolean,
+    onDismiss: () -> Unit,
+) {
+    if (show) {
+        Dialog(
+            onDismissRequest = { onDismiss() },
+        ) {
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .background(Color.White),
+            ) {
+                MyTitleDialog(
+                    text = "Phone ringtone",
+                    modifier = Modifier.padding(24.dp),
+                )
+                Divider(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = Color.LightGray,
+                )
+
+                var status by remember {
+                    mutableStateOf("")
+                }
+                MyRadioButtonList(name = status, onItemSelected = { status = it })
+
+                Divider(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = Color.LightGray,
+                )
+                Row(
+                    modifier =
+                        Modifier
+                            .align(Alignment.End)
+                            .padding(8.dp),
+                ) {
+                    TextButton(onClick = { /*TODO*/ }) {
+                        Text(text = "CANCEL")
+                    }
+
+                    TextButton(onClick = { /*TODO*/ }) {
+                        Text(text = "OK")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun MyCustomDialog(
     show: Boolean,
     onDismiss: () -> Unit,
@@ -36,10 +93,10 @@ fun MyCustomDialog(
         ) {
             Column(
                 modifier =
-                Modifier
-                    .background(Color.White)
-                    .padding(24.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .background(Color.White)
+                        .padding(24.dp)
+                        .fillMaxWidth(),
             ) {
                 MyTitleDialog(text = "Set backup account")
                 AccountItem(
@@ -75,10 +132,10 @@ fun MyCustomAlertDialog(
         ) {
             Column(
                 modifier =
-                Modifier
-                    .background(Color.White)
-                    .padding(24.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .background(Color.White)
+                        .padding(24.dp)
+                        .fillMaxWidth(),
             ) {
                 Text(text = "Esto es un ejemplo")
             }
@@ -116,12 +173,15 @@ fun MyDialog(
 }
 
 @Composable
-fun MyTitleDialog(text: String) {
+fun MyTitleDialog(
+    text: String,
+    modifier: Modifier = Modifier.padding(bottom = 12.dp),
+) {
     Text(
         text = text,
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp,
-        modifier = Modifier.padding(bottom = 12.dp),
+        modifier = modifier,
     )
 }
 
@@ -136,10 +196,10 @@ fun AccountItem(
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
             modifier =
-            Modifier
-                .padding(8.dp)
-                .size(40.dp)
-                .clip(CircleShape),
+                Modifier
+                    .padding(8.dp)
+                    .size(40.dp)
+                    .clip(CircleShape),
         )
 
         Text(

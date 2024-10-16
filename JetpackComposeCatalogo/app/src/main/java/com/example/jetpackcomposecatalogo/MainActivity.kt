@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
                         }) {
                             Text(text = "Mostrar dialogo")
                         }
-                        MyCustomDialog(
+                        MyConfirmationDialog(
                             show = show,
                             onDismiss = {
                                 Log.i("Dialog", "Dismiss")
@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyCustomDialog(
+        MyConfirmationDialog(
             show = true,
             onDismiss = {
                 Log.i("Dialog", "Dismiss")
