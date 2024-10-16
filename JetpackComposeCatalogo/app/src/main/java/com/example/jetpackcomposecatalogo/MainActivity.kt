@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
                         }) {
                             Text(text = "Mostrar dialogo")
                         }
-                        MyCustomAlertDialog(
+                        MyCustomDialog(
                             show = show,
                             onDismiss = {
                                 Log.i("Dialog", "Dismiss")
@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     JetpackComposeCatalogoTheme {
-        MyCustomAlertDialog(
+        MyCustomDialog(
             show = true,
             onDismiss = {
                 Log.i("Dialog", "Dismiss")
