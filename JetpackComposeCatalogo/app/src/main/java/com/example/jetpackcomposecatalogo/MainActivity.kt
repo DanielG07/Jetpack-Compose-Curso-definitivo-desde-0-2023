@@ -87,15 +87,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    var show by remember {
-                        mutableStateOf(false)
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        MySimpleRecyclerView()
-                    }
+                    MySuperHeroView()
                 }
             }
         }
