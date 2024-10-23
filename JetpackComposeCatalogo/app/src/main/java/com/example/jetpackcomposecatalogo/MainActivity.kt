@@ -94,17 +94,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Button(onClick = {
-                            show = true
-                        }) {
-                            Text(text = "Mostrar dialogo")
-                        }
-                        MyConfirmationDialog(
-                            show = show,
-                            onDismiss = {
-                                Log.i("Dialog", "Dismiss")
-                            },
-                        )
+                        MySimpleRecyclerView()
                     }
                 }
             }
