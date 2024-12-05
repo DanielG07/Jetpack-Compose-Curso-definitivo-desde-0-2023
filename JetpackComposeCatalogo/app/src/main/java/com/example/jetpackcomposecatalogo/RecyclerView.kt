@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -42,6 +45,23 @@ fun MySimpleRecyclerView() {
 }
 
 @Composable
+fun MySuperHeroGridView() {
+    val context = LocalContext.current
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(150.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        content = {
+            items(getSuperHero()) { superhero ->
+                ItemHero(superHero = superhero) {
+                    Toast.makeText(context, it.superHeroName, Toast.LENGTH_SHORT).show()
+                }
+            }
+        },
+    )
+}
+
+@Composable
 fun MySuperHeroView() {
     val context = LocalContext.current
     LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -60,7 +80,10 @@ fun ItemHero(
 ) {
     Card(
         border = BorderStroke(2.dp, Color.Red),
-        modifier = Modifier.width(200.dp).clickable { onItemSelected(superHero) },
+        modifier =
+            Modifier
+                .width(200.dp)
+                .clickable { onItemSelected(superHero) },
     ) {
         Column {
             Image(
