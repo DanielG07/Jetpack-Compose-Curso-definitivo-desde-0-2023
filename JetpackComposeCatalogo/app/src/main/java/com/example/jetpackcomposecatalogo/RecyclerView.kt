@@ -2,13 +2,14 @@ package com.example.jetpackcomposecatalogo
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -34,6 +35,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcomposecatalogo.model.SuperHero
 import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun MySuperHeroStickyView() {
+    val context = LocalContext.current
+    val superHeroes: Map<String, List<SuperHero>> = getSuperHero().groupBy { it.publisher }
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        superHeroes.forEach { (publisher, mySuperHero) ->
+
+            stickyHeader {
+                Text(
+                    text = publisher,
+                    modifier = Modifier.fillMaxWidth().background(Color.Green),
+                    fontSize = 16.sp,
+                    color = Color.White,
+                )
+            }
+
+            items(mySuperHero) { superhero ->
+                ItemHero(superHero = superhero) {
+                    Toast.makeText(context, it.superHeroName, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun MySuperHeroSpecialControlView() {
@@ -127,7 +156,7 @@ fun ItemHero(
         border = BorderStroke(2.dp, Color.Red),
         modifier =
             Modifier
-                .width(200.dp)
+                .fillMaxWidth()
                 .clickable { onItemSelected(superHero) },
     ) {
         Column {
@@ -161,10 +190,10 @@ fun ItemHero(
 fun getSuperHero(): List<SuperHero> =
     listOf(
         SuperHero("Spiderman", "Petter Parker", "Marvel", R.drawable.spiderman),
-        SuperHero("Spiderman1", "Petter Parker", "Marvel", R.drawable.logan),
-        SuperHero("Spiderman2", "Petter Parker", "Marvel", R.drawable.batman),
-        SuperHero("Spiderman3", "Petter Parker", "Marvel", R.drawable.thor),
-        SuperHero("Spiderman4", "Petter Parker", "Marvel", R.drawable.flash),
-        SuperHero("Spiderman5", "Petter Parker", "Marvel", R.drawable.green_lantern),
-        SuperHero("Spiderman6", "Petter Parker", "Marvel", R.drawable.wonder_woman),
+        SuperHero("Wolverine", "James Howlett", "Marvel", R.drawable.logan),
+        SuperHero("Batman", "Bruce Wayne", "DC", R.drawable.batman),
+        SuperHero("Thor", "Thor Odinson", "Marvel", R.drawable.thor),
+        SuperHero("Flash", "Jay Garrick", "DC", R.drawable.flash),
+        SuperHero("Green Lanter", "Alan Scott", "DC", R.drawable.green_lantern),
+        SuperHero("Wonder Woman", "Princess Diana", "DC", R.drawable.wonder_woman),
     )
