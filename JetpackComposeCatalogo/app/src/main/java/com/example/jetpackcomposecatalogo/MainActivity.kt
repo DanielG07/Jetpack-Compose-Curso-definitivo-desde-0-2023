@@ -78,6 +78,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposecatalogo.model.Routes.*
 import com.example.jetpackcomposecatalogo.ui.CheckInfo
 import com.example.jetpackcomposecatalogo.ui.theme.JetpackComposeCatalogoTheme
 
@@ -91,10 +92,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     val navigationController = rememberNavController()
-                    NavHost(navController = navigationController, startDestination = "screen1") {
-                        composable("screen1") { Screen1(navigationController) }
-                        composable("screen2") { Screen2(navigationController) }
-                        composable("screen3") { Screen3(navigationController) }
+                    NavHost(
+                        navController = navigationController,
+                        startDestination = Screen1.route,
+                    ) {
+                        composable(Screen1.route) { Screen1(navigationController) }
+                        composable(Screen2.route) { Screen2(navigationController) }
+                        composable(Screen3.route) { Screen3(navigationController) }
                     }
                 }
             }
@@ -320,7 +324,10 @@ fun MyCheckBoxWithTextComplete(checkInfo: CheckInfo) {
         modifier = Modifier.padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = checkInfo.selected, onCheckedChange = { checkInfo.onCheckedChange(!checkInfo.selected) })
+        Checkbox(
+            checked = checkInfo.selected,
+            onCheckedChange = { checkInfo.onCheckedChange(!checkInfo.selected) },
+        )
         Spacer(modifier = Modifier.width(8.dp))
         Text(text = checkInfo.title)
     }
