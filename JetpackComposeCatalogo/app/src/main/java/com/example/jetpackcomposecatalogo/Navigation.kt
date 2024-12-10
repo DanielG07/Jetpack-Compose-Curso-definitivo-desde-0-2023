@@ -61,7 +61,7 @@ fun Screen3(navigationController: NavHostController) {
             modifier =
                 Modifier
                     .align(Alignment.Center)
-                    .clickable { navigationController.navigate("screen4/32") },
+                    .clickable { navigationController.navigate(Screen4.createRoute(29)) },
         )
     }
 }
@@ -69,7 +69,7 @@ fun Screen3(navigationController: NavHostController) {
 @Composable
 fun Screen4(
     navigationController: NavHostController,
-    name: Int,
+    age: Int,
 ) {
     Box(
         modifier =
@@ -78,7 +78,7 @@ fun Screen4(
                 .background(Color.Magenta),
     ) {
         Text(
-            text = "Pantalla 4 - $name",
+            text = "Pantalla 4 - Tengo $age años",
             modifier =
                 Modifier
                     .align(Alignment.Center),
