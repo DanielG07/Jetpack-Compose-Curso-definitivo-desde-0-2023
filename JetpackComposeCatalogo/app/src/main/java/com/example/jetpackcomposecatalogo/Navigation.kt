@@ -81,6 +81,27 @@ fun Screen4(
             text = "Pantalla 4 - Tengo $age años",
             modifier =
                 Modifier
+                    .align(Alignment.Center)
+                    .clickable { navigationController.navigate("screen5") },
+        )
+    }
+}
+
+@Composable
+fun Screen5(
+    navigationController: NavHostController,
+    name: String?,
+) {
+    Box(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(Color.Magenta),
+    ) {
+        Text(
+            text = "Pantalla 5 - Mi nombre es $name",
+            modifier =
+                Modifier
                     .align(Alignment.Center),
         )
     }
