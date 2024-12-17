@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.jetpackcomposeinstagram.login.domain.LoginUseCase
 
 class LoginViewModel : ViewModel() {
 
@@ -19,8 +20,7 @@ class LoginViewModel : ViewModel() {
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
         _password.value = password
-
-        val isEnable = enableLogin(email, password)
+        _isLoginEnable.value = enableLogin(email, password)
     }
 
     fun enableLogin(email: String, password: String): Boolean {
