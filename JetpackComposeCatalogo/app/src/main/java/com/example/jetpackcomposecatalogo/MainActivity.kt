@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    VisibilityAnimation()
+                    CrossfadeExampleAnimation()
                 }
             }
         }
