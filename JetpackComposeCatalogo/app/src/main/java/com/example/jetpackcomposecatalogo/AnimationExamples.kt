@@ -53,7 +53,11 @@ fun SizeAnimation() {
         mutableStateOf(true)
     }
 
-    val size by animateDpAsState(targetValue = if (smallSize) 50.dp else 100.dp)
+    val size by animateDpAsState(
+        targetValue = if (smallSize) 50.dp else 100.dp,
+        animationSpec = tween(durationMillis = 5000),
+        finishedListener = {},
+    )
 
     Box(
         modifier =
