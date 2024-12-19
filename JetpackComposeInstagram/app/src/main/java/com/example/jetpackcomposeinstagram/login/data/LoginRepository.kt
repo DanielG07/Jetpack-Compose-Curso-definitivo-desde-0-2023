@@ -1,11 +1,13 @@
 package com.example.jetpackcomposeinstagram.login.data
 
 import com.example.jetpackcomposeinstagram.login.data.network.LoginService
+import javax.inject.Inject
 
-class LoginRepository {
-    private val api = LoginService()
+class LoginRepository @Inject constructor(
+    private val loginApi : LoginService
+) {
 
     suspend fun doLogin(user: String, password: String): Boolean{
-        return api.doLogin(user, password)
+        return loginApi.doLogin(user, password)
     }
 }
