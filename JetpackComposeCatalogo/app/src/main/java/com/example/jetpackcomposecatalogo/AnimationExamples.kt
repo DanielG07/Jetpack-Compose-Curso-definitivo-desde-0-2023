@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -86,7 +88,11 @@ fun VisibilityAnimation() {
 
         Spacer(modifier = Modifier.size(50.dp))
 
-        AnimatedVisibility(visible = isVisible) {
+        AnimatedVisibility(
+            visible = isVisible,
+            enter = slideInHorizontally(),
+            exit = slideOutHorizontally(),
+        ) {
             Box(modifier = Modifier.size(150.dp).background(Color.Yellow))
         }
     }
