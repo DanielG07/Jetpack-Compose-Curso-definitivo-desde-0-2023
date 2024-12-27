@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import com.dproject.todoapp.addtasks.ui.TaskScreen
 import com.dproject.todoapp.addtasks.ui.TaskViewModel
 import com.dproject.todoapp.ui.theme.TodoAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val taskViewModel: TaskViewModel by viewModels()
